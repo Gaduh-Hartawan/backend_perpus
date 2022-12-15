@@ -1,0 +1,37 @@
+import express from "express";
+import {
+  getUsers,
+  addUser,
+  editUser,
+  getUserById,
+  deleteUser,
+  getAdmin,
+  addAdmin,
+  editAdmin,
+  getAdminById,
+  deleteAdmin,
+  getBorrows,
+  addBorrow,
+} from "../controllers/admin.js";
+
+const router = express.Router();
+
+// Route untuk Controller Admin Kelola User
+router.get("/users", getUsers);
+router.post("/users", addUser);
+router.get("/users/:id", getUserById);
+router.put("/users", editUser);
+router.delete("/users/:id", deleteUser);
+
+// Route Untuk Controller Admin kelola Admin
+router.get("/admin", getAdmin);
+router.post("/admin", addAdmin);
+router.get("/admin/:id", getAdminById);
+router.put("/admin", editAdmin);
+router.delete("/admin/:id", deleteAdmin);
+
+// Route Untuk Controller Admin kelola Transaksi Peminjaman
+router.get("/books", getBorrows);
+router.post("/books", addBorrow);
+
+export default router;
