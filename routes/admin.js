@@ -31,7 +31,7 @@ router.put("/admin", editAdmin);
 router.delete("/admin/:id", deleteAdmin);
 
 // Route Untuk Controller Admin kelola Transaksi Peminjaman
-router.get("/books", getBorrows);
-router.post("/books", addBorrow);
+router.get("/borrow", getBorrows);
+router.post("/borrow", addBorrow);
 
 export default router;
