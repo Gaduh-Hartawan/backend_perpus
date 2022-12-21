@@ -22,10 +22,10 @@ export const addUser = (req, res) => {
   const values = [
     req.body.nama,
     req.body.nim,
-    req.body.telp,
+    req.body.tlp,
     req.body.jurusan,
     req.body.username,
-    req.body.password,
+    req.body.pass,
   ];
 
   db.query(q, [values], (err, data) => {
