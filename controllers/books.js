@@ -88,7 +88,7 @@ export const getKategori = (req, res) => {
 
 // Simpan Data Add Kategori
 export const addKategori = (req, res) => {
-  const b = `INSERT INTO t_kategori SET ?;`;
+  const b = `INSERT INTO t_kategori (nama_kategori) values (?)`;
   const values = [req.body.nama_kategori];
   db.query(b, [values], (err, data) => {
     if (err) return res.json(err);
@@ -108,8 +108,8 @@ export const getKategoriById = (req, res) => {
 
 // Simpan Data Edit Kategori
 export const editKategori = (req, res) => {
-  let id = req.body.id;
-  const b = `UPDATE t_kategori SET ? WHERE id_kategori = ?;`;
+  let id = req.params.id;
+  const b = `UPDATE t_kategori SET ? WHERE id_kategori = ${id}`;
   let values = {
     nama_kategori: req.body.nama_kategori,
   };
@@ -122,7 +122,7 @@ export const editKategori = (req, res) => {
 // Delete Kategori
 export const deleteKategori = (req, res) => {
   let id = req.params.id;
-  let b = `DELETE FROM t_kategori WHERE id_kategori = ?;`;
+  let b = `DELETE FROM t_kategori WHERE id_kategori = ${id};`;
   db.query(b, (err, data) => {
     if (err) throw err;
     return res.json("Data kategori berhasil dihapus");
