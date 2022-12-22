@@ -46,7 +46,7 @@ export const getUserById = (req, res) => {
 
 // Update / Ubah data user berdasarkan id
 export const editUser = (req, res) => {
-  let id = req.body.id;
+  let id = req.params.id;
   const q = `UPDATE t_anggota SET ? WHERE id_anggota = ${id}`;
   let values = {
     nama_anggota: req.body.nama,
@@ -117,13 +117,13 @@ export const getAdminById = (req, res) => {
 
 // Update / Ubah data user berdasarkan id
 export const editAdmin = (req, res) => {
-  let id = req.body.id;
+  let id = req.params.id;
   const q = `UPDATE t_admin SET ? WHERE id_admin = ${id}`;
   let values = {
     nama_admin: req.body.nama,
     email: req.body.email,
     username: req.body.username,
-    password: req.body.pass,
+    password: req.body.password,
   };
   db.query(q, [values], (err, data) => {
     if (err) return res.json(err);
