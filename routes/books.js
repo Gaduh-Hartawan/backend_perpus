@@ -28,7 +28,7 @@ router.delete("/books/:id", deleteBook);
 router.get("/category", getKategori);
 router.post("/category", addKategori);
 router.get("/category/:id", getKategoriById);
-router.put("/category", editKategori);
+router.put("/category/:id", editKategori);
 router.delete("/category/:id", deleteKategori);
 
 router.get("/type", getJenis);
