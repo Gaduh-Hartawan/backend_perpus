@@ -20,14 +20,14 @@ const router = express.Router();
 router.get("/users", getUsers);
 router.post("/users", addUser);
 router.get("/users/:id", getUserById);
-router.put("/users", editUser);
+router.put("/users/:id", editUser);
 router.delete("/users/:id", deleteUser);
 
 // Route Untuk Controller Admin kelola Admin
 router.get("/admin", getAdmin);
 router.post("/admin", addAdmin);
 router.get("/admin/:id", getAdminById);
-router.put("/admin", editAdmin);
+router.put("/admin/:id", editAdmin);
 router.delete("/admin/:id", deleteAdmin);
 
 // Route Untuk Controller Admin kelola Transaksi Peminjaman
