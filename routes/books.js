@@ -34,7 +34,7 @@ router.delete("/category/:id", deleteKategori);
 router.get("/type", getJenis);
 router.post("/type", addJenis);
 router.get("/type/:id", getJenisById);
-router.put("/type", editJenis);
+router.put("/type/:id", editJenis);
 router.delete("/type/:id", deleteJenis);
 
 export default router;
