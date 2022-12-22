@@ -147,7 +147,7 @@ export const getJenis = (req, res) => {
 
 // Simpan data add jenis
 export const addJenis = (req, res) => {
-  const b = `INSERT INTO t_jenis SET ?;`;
+  const b = `INSERT INTO t_jenis (nama_jenis) values (?);`;
   const values = [req.body.nama_jenis];
   db.query(b, [values], (err, data) => {
     if (err) return res.json(err);
@@ -167,8 +167,8 @@ export const getJenisById = (req, res) => {
 
 // Simpan data edit jenis
 export const editJenis = (req, res) => {
-  let id = req.body.id;
-  const b = `UPDATE t_jenis SET ? WHERE id_jenis = ?;`;
+  let id = req.params.id;
+  const b = `UPDATE t_jenis SET ? WHERE id_jenis = ${id};`;
   let values = {
     nama_jenis: req.body.nama_jenis,
   };
@@ -181,7 +181,7 @@ export const editJenis = (req, res) => {
 // hapus jenis
 export const deleteJenis = (req, res) => {
   let id = req.params.id;
-  let b = `DELETE FROM t_jenis WHERE id_jenis = ?;`;
+  let b = `DELETE FROM t_jenis WHERE id_jenis = ${id};`;
   db.query(b, (err, data) => {
     if (err) throw err;
     return res.json("Data jenis berhasil dihapus");
