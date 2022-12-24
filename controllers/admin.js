@@ -149,8 +149,10 @@ export const deleteAdmin = (req, res) => {
 
 export const getBorrows = (req, res) => {
   let query = `SELECT * FROM t_pinjam 
-        INNER JOIN t_buku ON t_pinjam.id_buku = t_buku.id_buku
-        INNER JOIN t_anggota ON t_pinjam.id_anggota = t_anggota.id_anggota;`;
+        JOIN t_buku ON t_pinjam.id_buku = t_buku.id_buku
+        JOIN t_anggota ON t_pinjam.id_anggota = t_anggota.id_anggota
+        where t_pinjam.status_pinjam = 'belum dikembalikan'
+        `;
   db.query(query, (err, data) => {
     if (err) throw err;
     return res.json(data);
@@ -158,9 +160,72 @@ export const getBorrows = (req, res) => {
 };
 
 export const addBorrow = (req, res) => {
-  const queryAddBorrow = `insert into t_pinjam (lama_pinjam, id_anggota, id_buku) values ?`;
-  const values = [req.body.lama_pinjam, req.body.id_anggota, req.body.id_buku];
-  db.query(queryAddBorrow, values, (err, data) => {
+  const queryAddBorrow = `insert into t_pinjam (id_anggota, id_buku, status_pinjam, tgl_pinjam, lama_pinjam) values (?)`;
+  const values = [
+    req.body.id_anggota,
+    req.body.id_buku,
+    req.body.status,
+    req.body.tgl_pinjam,
+    req.body.lama_pinjam,
+  ];
+  db.query(queryAddBorrow, [values], (err, data) => {
+    if (err) throw err;
+    return res.json(data);
+  });
+};
+
+export const deleteBorrow = (req, res) => {
+  const id = req.params.id;
+  const q = `delete from t_pinjam where id_pinjam = ${id}`;
+  db.query(q, (err, data) => {
+    if (err) throw err;
+    return res.json("Peminjaman Berhasil dihapus!");
+  });
+};
+
+export const editBorrow = (req, res) => {
+  let id = req.params.id;
+  const q = `UPDATE t_pinjam SET ? WHERE id_pinjam = ${id}`;
+  let values = {
+    status_pinjam: req.body.status,
+    tgl_kembali: req.body.tgl_kembali,
+  };
+  db.query(q, [values], (err, data) => {
+    if (err) return res.json(err);
+    return res.json("Data peminjaman berhasil diubah");
+  });
+};
+
+export const getBorrowById = (req, res) => {
+  let id = req.params.id;
+  const q = `Select * from t_pinjam WHERE id_pinjam = ${id}`;
+  db.query(q, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+};
+
+export const getReturn = (req, res) => {
+  const q = `select * from t_pinjam 
+  join t_anggota on t_pinjam.id_anggota = t_anggota.id_anggota
+  join t_buku on t_pinjam.id_buku = t_buku.id_buku
+  where t_pinjam.status_pinjam = 'dikembalikan'
+  `;
+  db.query(q, (err, data) => {
+    if (err) throw err;
+    return res.json(data);
+  });
+};
+
+export const count = (req, res) => {
+  const q = `
+  select count(*) as count_user from t_anggota;
+  select count(*) as count_book from t_buku;
+  select count(*) as count_return from t_pinjam where status_pinjam = 'dikembalikan';
+  select count(*) as count_borrow from t_pinjam where status_pinjam = 'belum dikembalikan';
+  `;
+
+  db.query(q, (err, data) => {
     if (err) throw err;
     return res.json(data);
   });

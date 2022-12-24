@@ -12,9 +12,16 @@ import {
   deleteAdmin,
   getBorrows,
   addBorrow,
+  deleteBorrow,
+  getBorrowById,
+  editBorrow,
+  getReturn,
+  count,
 } from "../controllers/admin.js";
 
 const router = express.Router();
+
+router.get("/count", count);
 
 // Route untuk Controller Admin Kelola User
 router.get("/users", getUsers);
@@ -32,6 +39,10 @@ router.delete("/admin/:id", deleteAdmin);
 
 // Route Untuk Controller Admin kelola Transaksi Peminjaman
 router.get("/borrow", getBorrows);
+router.get("/borrow/:id", getBorrowById);
 router.post("/borrow", addBorrow);
+router.delete("/borrow/:id", deleteBorrow);
+router.put("/borrow/:id", editBorrow);
+router.get("/return", getReturn);
 
 export default router;
